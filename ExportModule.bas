@@ -21,7 +21,7 @@ Public Sub ExportModules()
     On Error GoTo 0
 
     ''' NOTE: This workbook must be open in Excel.
-    szSourceWorkbook = ActiveWorkbook.Name
+    szSourceWorkbook = ActiveWorkbook.name
     Set wkbSource = Application.Workbooks(szSourceWorkbook)
     
     If wkbSource.VBProject.Protection = 1 Then
@@ -35,7 +35,7 @@ Public Sub ExportModules()
     For Each cmpComponent In wkbSource.VBProject.VBComponents
         
         bExport = True
-        szFileName = cmpComponent.Name
+        szFileName = cmpComponent.name
 
         ''' Concatenate the correct filename for export.
         Select Case cmpComponent.Type
@@ -75,7 +75,7 @@ Public Sub ImportModules()
     Dim szFileName As String
     Dim cmpComponents As VBIDE.VBComponents
 
-    If ActiveWorkbook.Name = ThisWorkbook.Name Then
+    If ActiveWorkbook.name = ThisWorkbook.name Then
         MsgBox "Select another destination workbook" & _
         "Not possible to import in this workbook "
         Exit Sub
@@ -88,7 +88,7 @@ Public Sub ImportModules()
     End If
 
     ''' NOTE: This workbook must be open in Excel.
-    szTargetWorkbook = ActiveWorkbook.Name
+    szTargetWorkbook = ActiveWorkbook.name
     Set wkbTarget = Application.Workbooks(szTargetWorkbook)
     
     If wkbTarget.VBProject.Protection = 1 Then
@@ -115,9 +115,9 @@ Public Sub ImportModules()
     ''' to the ActiveWorkbook.
     For Each objFile In objFSO.GetFolder(szImportPath).Files
     
-        If (objFSO.GetExtensionName(objFile.Name) = "cls") Or _
-            (objFSO.GetExtensionName(objFile.Name) = "frm") Or _
-            (objFSO.GetExtensionName(objFile.Name) = "bas") Then
+        If (objFSO.GetExtensionName(objFile.name) = "cls") Or _
+            (objFSO.GetExtensionName(objFile.name) = "frm") Or _
+            (objFSO.GetExtensionName(objFile.name) = "bas") Then
             cmpComponents.Import objFile.Path
         End If
         
@@ -165,8 +165,10 @@ Function DeleteVBAModulesAndUserForms()
                 'Thisworkbook or worksheet module
                 'We do nothing
             Else
-                VBProj.VBComponents.remove VBComp
+                VBProj.VBComponents.Remove VBComp
             End If
         Next VBComp
 End Function
+
+
 
